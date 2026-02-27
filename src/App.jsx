@@ -66,17 +66,23 @@ function App() {
 
           <div style={{
             display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            justifyContent: 'space-between',
-            alignItems: isMobile ? 'flex-start' : 'center',
-            gap: isMobile ? '1rem' : '0',
+            flexDirection: 'column',
+            gap: '1rem',
             marginBottom: '1.5rem',
             marginTop: '2rem'
           }}>
             <h1 className="dashboard-heading" style={{ margin: 0 }}>Global CO2 Pulse</h1>
 
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', flexWrap: 'wrap' }}>
+            <div style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'column' : 'row',
+              justifyContent: 'space-between',
+              alignItems: isMobile ? 'stretch' : 'center',
+              gap: '1.5rem'
+            }}>
+
+              {/* Left Side: Chart Mode Controls */}
+              <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', alignSelf: isMobile ? 'flex-start' : 'auto' }}>
                 {['historical', 'projected', 'both'].map((m) => (
                   <button
                     key={m}
@@ -87,11 +93,12 @@ function App() {
                       if (m === 'both' && selectedYear <= 2025) setSelectedYear(2035);
                     }}
                     style={{
-                      padding: '0.5rem 1rem',
+                      padding: isMobile ? '0.5rem 0.75rem' : '0.5rem 1rem',
                       borderRadius: '0.375rem',
                       border: 'none',
                       cursor: 'pointer',
                       fontWeight: 600,
+                      fontSize: isMobile ? '0.875rem' : '1rem',
                       textTransform: 'capitalize',
                       backgroundColor: chartMode === m ? 'var(--color-brand)' : 'transparent',
                       color: chartMode === m ? '#000' : 'var(--text-secondary)',
@@ -102,21 +109,38 @@ function App() {
                   </button>
                 ))}
               </div>
-              <button
-                onClick={() => setIsCalculatorOpen(true)}
-                style={{
-                  padding: '0.5rem 1rem',
-                  borderRadius: '0.5rem',
-                  border: '1px solid var(--color-accent)',
-                  cursor: 'pointer',
-                  fontWeight: 600,
-                  backgroundColor: 'rgba(236, 72, 153, 0.1)',
-                  color: 'var(--color-accent)',
-                  transition: 'all 0.2s',
-                }}
-              >
-                Calculate Impact
-              </button>
+
+              {/* Right Side: Calculator CTA */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: isMobile ? 'stretch' : 'flex-end',
+                gap: '0.5rem',
+                backgroundColor: isMobile ? 'rgba(255,255,255,0.03)' : 'transparent',
+                padding: isMobile ? '1rem' : '0',
+                borderRadius: '0.5rem',
+                border: isMobile ? '1px solid var(--border-color)' : 'none'
+              }}>
+                {isMobile && <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-secondary)' }}>See how your daily habits affect global trends.</p>}
+
+                <button
+                  onClick={() => setIsCalculatorOpen(true)}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '0.5rem',
+                    border: '1px solid var(--color-accent)',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                    width: isMobile ? '100%' : 'auto',
+                    backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                    color: 'var(--color-accent)',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  Calculate Your Impact
+                </button>
+              </div>
+
             </div>
           </div>
 
