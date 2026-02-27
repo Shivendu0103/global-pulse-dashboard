@@ -124,7 +124,7 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                 }}
             >
                 <ResponsiveContainer width="100%" height={400}>
-                    <ComposedChart data={filteredData} margin={{ top: 20, right: isMobile ? 45 : 30, left: isMobile ? 15 : 0, bottom: 0 }}>
+                    <ComposedChart data={filteredData} margin={{ top: 20, right: isMobile ? 45 : 30, left: isMobile ? 25 : 0, bottom: 20 }}>
                         <defs>
                             <linearGradient id="colorCo2" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="var(--color-brand)" stopOpacity={0.4} />
