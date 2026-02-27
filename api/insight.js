@@ -27,6 +27,6 @@ Focus strictly on the scientific / socio-economic context of the data. Do not us
         return res.status(200).json({ insight: responseText.trim() });
     } catch (error) {
         console.error("AI Insight Engine Error:", error);
-        return res.status(500).json({ error: 'Failed to generate insight.' });
+        return res.status(500).json({ error: error.message || 'Failed to generate insight.' });
     }
 }

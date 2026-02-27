@@ -75,14 +75,45 @@ function App() {
 
             <div style={{
               display: 'flex',
-              flexDirection: isMobile ? 'column' : 'row',
-              justifyContent: 'space-between',
-              alignItems: isMobile ? 'stretch' : 'center',
+              flexDirection: 'column',
+              justifyContent: 'flex-start',
+              alignItems: 'stretch',
               gap: '0.75rem'
             }}>
 
-              {/* Left Side: Chart Mode Controls */}
-              <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', alignSelf: isMobile ? 'flex-start' : 'auto' }}>
+              {/* Top: Calculator CTA */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: isMobile ? 'stretch' : 'flex-start',
+                gap: '0.5rem',
+                backgroundColor: isMobile ? 'rgba(255,255,255,0.03)' : 'transparent',
+                padding: isMobile ? '0.5rem' : '0',
+                borderRadius: '0.5rem',
+                border: isMobile ? '1px solid var(--border-color)' : 'none'
+              }}>
+                <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-secondary)' }}>See how your daily habits affect global trends.</p>
+
+                <button
+                  onClick={() => setIsCalculatorOpen(true)}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '0.5rem',
+                    border: '1px solid var(--color-accent)',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                    width: isMobile ? '100%' : 'auto',
+                    backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                    color: 'var(--color-accent)',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  Calculate Your Impact
+                </button>
+              </div>
+
+              {/* Bottom: Chart Mode Controls */}
+              <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', alignSelf: 'flex-start' }}>
                 {['historical', 'projected', 'both'].map((m) => (
                   <button
                     key={m}
@@ -108,37 +139,6 @@ function App() {
                     {m}
                   </button>
                 ))}
-              </div>
-
-              {/* Right Side: Calculator CTA */}
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: isMobile ? 'stretch' : 'flex-end',
-                gap: '0.5rem',
-                backgroundColor: isMobile ? 'rgba(255,255,255,0.03)' : 'transparent',
-                padding: isMobile ? '0.5rem' : '0',
-                borderRadius: '0.5rem',
-                border: isMobile ? '1px solid var(--border-color)' : 'none'
-              }}>
-                {isMobile && <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-secondary)' }}>See how your daily habits affect global trends.</p>}
-
-                <button
-                  onClick={() => setIsCalculatorOpen(true)}
-                  style={{
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '0.5rem',
-                    border: '1px solid var(--color-accent)',
-                    cursor: 'pointer',
-                    fontWeight: 600,
-                    width: isMobile ? '100%' : 'auto',
-                    backgroundColor: 'rgba(236, 72, 153, 0.1)',
-                    color: 'var(--color-accent)',
-                    transition: 'all 0.2s',
-                  }}
-                >
-                  Calculate Your Impact
-                </button>
               </div>
 
             </div>
