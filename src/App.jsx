@@ -9,6 +9,7 @@ import YearSlider from './components/YearSlider';
 import useIsMobile from './hooks/useIsMobile';
 import useLocalStorage from './hooks/useLocalStorage';
 import CarbonFootprintCalculator from './components/CarbonFootprintCalculator';
+import InsightCard from './components/InsightCard';
 
 function App() {
   const [selectedYear, setSelectedYear] = useState(2025);
@@ -19,6 +20,15 @@ function App() {
     energy: 500,
     diet: 2
   });
+
+  // Since mockData lives in CO2TrendsChart, we need a simple mapping here to pass current CO2 to the Insight Engine
+  const getSimulatedCo2 = (year) => {
+    // Basic approximation matching the MockData structure:
+    if (year <= 2025) {
+      return 369.5 + ((year - 2000) * 2.22); // Historical linear approximation 
+    }
+    return 425.0 + ((year - 2025) * 3.1); // Projected linear approximation
+  };
 
   const isMobile = useIsMobile(768);
 
@@ -51,6 +61,8 @@ function App() {
           }>
             <GlobalEmissionMap currentYear={selectedYear} />
           </Suspense>
+
+          <InsightCard year={selectedYear} co2Value={getSimulatedCo2(selectedYear).toFixed(1)} />
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', marginTop: '2rem' }}>
             <h1 className="dashboard-heading" style={{ margin: 0 }}>Global CO2 Pulse</h1>
