@@ -78,7 +78,7 @@ function App() {
               flexDirection: 'column',
               justifyContent: 'flex-start',
               alignItems: 'stretch',
-              gap: '0.75rem'
+              gap: '2rem'
             }}>
 
               {/* Top: Calculator CTA */}
