@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ComposedChart, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { EMISSION_FACTORS } from '../utils/constants';
 
 const mockData = [
     { year: '2000', co2: 369.5 },
@@ -58,13 +59,22 @@ const CustomTooltip = ({ active, payload, label }) => {
                 <p style={{ margin: '0 0 0.5rem 0', fontWeight: 'bold', color: 'var(--text-secondary)' }}>
                     Year: {label}
                 </p>
-                {payload.map((entry, index) => (
-                    <p key={index} style={{ margin: '0.25rem 0', color: entry.color, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: entry.color, display: 'inline-block' }}></span>
-                        <span style={{ flex: 1 }}>{entry.name}</span>
-                        <strong style={{ color: '#fff' }}>{entry.value}</strong>
-                    </p>
-                ))}
+                {payload.map((entry, index) => {
+                    let name = entry.name;
+                    let val = entry.value;
+                    let color = entry.color;
+                    if (entry.dataKey === 'personalImpact') {
+                        name = "Your Ann. Impact";
+                        val = `${Math.round(val).toLocaleString()} kg CO2`;
+                    }
+                    return (
+                        <p key={index} style={{ margin: '0.25rem 0', color: color, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: color, display: 'inline-block' }}></span>
+                            <span style={{ flex: 1 }}>{name}</span>
+                            <strong style={{ color: '#fff' }}>{val}</strong>
+                        </p>
+                    );
+                })}
             </div>
         );
     }
@@ -72,17 +82,24 @@ const CustomTooltip = ({ active, payload, label }) => {
     return null;
 };
 
-export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical' }) {
-    // Filter out data points depending on the current mode and year:
-    // For 'historical', only show up to currentYear (max 2025)
-    // For 'projected', show future years.
-    // For 'both', show everything
+export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical', calculatorData }) {
+
+    // Calculate personal footprint (kg CO2/year) based on constants
+    const footprint = calculatorData ?
+        (calculatorData.commute * 52 * EMISSION_FACTORS.COMMUTE) +
+        (calculatorData.energy * 12 * EMISSION_FACTORS.GRID) +
+        (calculatorData.diet * 365 * EMISSION_FACTORS.DIET)
+        : null;
+
     const filteredData = mockData.filter(d => {
         const y = parseInt(d.year);
         if (mode === 'historical') return y <= currentYear;
-        if (mode === 'projected') return y >= 2025 && y <= Math.max(2025, currentYear); // we will control projection year independently or sync
-        return y <= currentYear; // for 'both', show up to currentYear
-    });
+        if (mode === 'projected') return y >= 2025 && y <= Math.max(2025, currentYear);
+        return y <= currentYear;
+    }).map(d => ({
+        ...d,
+        personalImpact: footprint // Appends calculator impact line
+    }));
 
     return (
         <section className="data-section" style={{ paddingTop: '2rem' }}>
@@ -107,7 +124,7 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                 }}
             >
                 <ResponsiveContainer width="100%" height={400}>
-                    <AreaChart data={filteredData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                    <ComposedChart data={filteredData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorCo2" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="var(--color-brand)" stopOpacity={0.4} />
@@ -126,9 +143,18 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                             minTickGap={30}
                         />
                         <YAxis
+                            yAxisId="left"
                             stroke="var(--text-secondary)"
                             tick={{ fill: 'var(--text-secondary)' }}
                             domain={['dataMin - 5', 'dataMax + 5']}
+                        />
+                        {/* Secondary YAxis for Carbon Footprint magnitude (kg CO2) */}
+                        <YAxis
+                            yAxisId="right"
+                            orientation="right"
+                            stroke="var(--color-accent)"
+                            tick={{ fill: 'var(--text-secondary)' }}
+                            domain={[0, 15000]} // Fixed domain bounds so users can see footprint fall relative to a worst-case scenario.
                         />
                         <Tooltip
                             content={<CustomTooltip />}
@@ -137,6 +163,7 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                         />
                         {(mode === 'historical' || mode === 'both') && (
                             <Area
+                                yAxisId="left"
                                 type="monotone"
                                 dataKey="co2"
                                 name="Historical CO2 (ppm)"
@@ -151,6 +178,7 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                         )}
                         {(mode === 'projected' || mode === 'both') && (
                             <Area
+                                yAxisId="left"
                                 type="monotone"
                                 dataKey="projectedCo2"
                                 name="Projected CO2 (ppm)"
@@ -164,7 +192,20 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                                 animationEasing="ease-in-out"
                             />
                         )}
-                    </AreaChart>
+                        {footprint !== null && (
+                            <Line
+                                yAxisId="right"
+                                type="monotone"
+                                dataKey="personalImpact"
+                                name="Your Ann. Impact"
+                                stroke="#eaff00"
+                                strokeWidth={3}
+                                strokeDasharray="4 4"
+                                dot={false}
+                                isAnimationActive={true}
+                            />
+                        )}
+                    </ComposedChart>
                 </ResponsiveContainer>
             </motion.div>
         </section>

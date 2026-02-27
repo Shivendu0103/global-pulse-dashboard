@@ -7,10 +7,18 @@ import CO2TrendsChart from './components/CO2TrendsChart';
 const GlobalEmissionMap = lazy(() => import('./components/GlobalEmissionMap'));
 import YearSlider from './components/YearSlider';
 import useIsMobile from './hooks/useIsMobile';
+import useLocalStorage from './hooks/useLocalStorage';
+import CarbonFootprintCalculator from './components/CarbonFootprintCalculator';
 
 function App() {
   const [selectedYear, setSelectedYear] = useState(2025);
   const [chartMode, setChartMode] = useState('historical'); // 'historical' | 'projected' | 'both'
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+  const [calculatorData, setCalculatorData] = useLocalStorage('carbonFootprintData', {
+    commute: 200,
+    energy: 500,
+    diet: 2
+  });
 
   const isMobile = useIsMobile(768);
 
@@ -47,41 +55,65 @@ function App() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', marginTop: '2rem' }}>
             <h1 className="dashboard-heading" style={{ margin: 0 }}>Global CO2 Pulse</h1>
 
-            <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
-              {['historical', 'projected', 'both'].map((m) => (
-                <button
-                  key={m}
-                  onClick={() => {
-                    setChartMode(m);
-                    if (m === 'historical' && selectedYear > 2025) setSelectedYear(2025);
-                    if (m === 'projected' && selectedYear <= 2025) setSelectedYear(2035);
-                    if (m === 'both' && selectedYear <= 2025) setSelectedYear(2035);
-                  }}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    borderRadius: '0.375rem',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontWeight: 600,
-                    textTransform: 'capitalize',
-                    backgroundColor: chartMode === m ? 'var(--color-brand)' : 'transparent',
-                    color: chartMode === m ? '#000' : 'var(--text-secondary)',
-                    transition: 'all 0.2s',
-                  }}
-                >
-                  {m}
-                </button>
-              ))}
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
+                {['historical', 'projected', 'both'].map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => {
+                      setChartMode(m);
+                      if (m === 'historical' && selectedYear > 2025) setSelectedYear(2025);
+                      if (m === 'projected' && selectedYear <= 2025) setSelectedYear(2035);
+                      if (m === 'both' && selectedYear <= 2025) setSelectedYear(2035);
+                    }}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      borderRadius: '0.375rem',
+                      border: 'none',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      textTransform: 'capitalize',
+                      backgroundColor: chartMode === m ? 'var(--color-brand)' : 'transparent',
+                      color: chartMode === m ? '#000' : 'var(--text-secondary)',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={() => setIsCalculatorOpen(true)}
+                style={{
+                  padding: '0.5rem 1rem',
+                  borderRadius: '0.5rem',
+                  border: '1px solid var(--color-accent)',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                  backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                  color: 'var(--color-accent)',
+                  transition: 'all 0.2s',
+                }}
+              >
+                Calculate Impact
+              </button>
             </div>
           </div>
 
-          <CO2TrendsChart currentYear={selectedYear} mode={chartMode} />
+          <CO2TrendsChart currentYear={selectedYear} mode={chartMode} calculatorData={calculatorData} />
 
           <YearSlider
             min={minYear}
             max={maxYear}
             value={selectedYear}
             onChange={setSelectedYear}
+          />
+
+          <CarbonFootprintCalculator
+            isOpen={isCalculatorOpen}
+            onClose={() => setIsCalculatorOpen(false)}
+            data={calculatorData}
+            setData={setCalculatorData}
           />
         </div>
       </main>
