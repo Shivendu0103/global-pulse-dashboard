@@ -40,6 +40,38 @@ const mockData = [
     { year: '2035', projectedCo2: 456.0 }
 ];
 
+const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="custom-tooltip" style={{
+                backgroundColor: 'rgba(17, 24, 39, 0.85)', // dark-mode gray semi-transparent
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                color: '#fff',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+                minWidth: '180px',
+                zIndex: 1000
+            }}>
+                <p style={{ margin: '0 0 0.5rem 0', fontWeight: 'bold', color: 'var(--text-secondary)' }}>
+                    Year: {label}
+                </p>
+                {payload.map((entry, index) => (
+                    <p key={index} style={{ margin: '0.25rem 0', color: entry.color, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: entry.color, display: 'inline-block' }}></span>
+                        <span style={{ flex: 1 }}>{entry.name}</span>
+                        <strong style={{ color: '#fff' }}>{entry.value}</strong>
+                    </p>
+                ))}
+            </div>
+        );
+    }
+
+    return null;
+};
+
 export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical' }) {
     // Filter out data points depending on the current mode and year:
     // For 'historical', only show up to currentYear (max 2025)
@@ -99,13 +131,9 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                             domain={['dataMin - 5', 'dataMax + 5']}
                         />
                         <Tooltip
-                            contentStyle={{
-                                backgroundColor: 'var(--bg-card-hover)',
-                                borderColor: 'var(--border-color)',
-                                borderRadius: '8px',
-                                color: 'var(--text-primary)'
-                            }}
-                            itemStyle={{ color: 'var(--color-brand)' }}
+                            content={<CustomTooltip />}
+                            cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 2, fill: 'rgba(255,255,255,0.05)' }}
+                            allowEscapeViewBox={{ x: false, y: false }}
                         />
                         {(mode === 'historical' || mode === 'both') && (
                             <Area
