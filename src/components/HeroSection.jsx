@@ -9,7 +9,7 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <motion.p 
+        <motion.p
           className="hero-badge"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -17,7 +17,7 @@ export default function HeroSection() {
         >
           EcoData
         </motion.p>
-        <motion.h1 
+        <motion.h1
           className="hero-title"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -25,7 +25,7 @@ export default function HeroSection() {
         >
           Our Planet, Our Data
         </motion.h1>
-        <motion.p 
+        <motion.p
           className="hero-subtitle"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -33,13 +33,14 @@ export default function HeroSection() {
         >
           Discover the hidden stories behind global environmental changes through immersive visualization.
         </motion.p>
-        <motion.button 
+        <motion.button
           className="hero-button"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
+          onClick={() => document.querySelector('.content-wrapper')?.scrollIntoView({ behavior: 'smooth' })}
         >
           Explore Dashboard
         </motion.button>

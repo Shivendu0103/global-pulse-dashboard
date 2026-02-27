@@ -8,8 +8,7 @@ const cards = [
     },
     {
         title: "Carbon Sequestration",
-        value: "Equivalent to planting 200M trees",
-        subValue: "Year to Date",
+        value: "Cumulative Impact: Equivalent to planting 200M trees",
         icon: "🌲"
     },
     {
