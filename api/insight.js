@@ -15,21 +15,14 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'Missing year or co2Value in request body' });
         }
 
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
         const prompt = `You are an expert environmental data analyst for the Global Pulse Dashboard. 
 Provide a concise, objective, and evidence-based insight (max 40 words) for the global status in the year ${year} when the Atmospheric CO2 was ${co2Value} ppm. 
 Focus strictly on the scientific / socio-economic context of the data. Do not use conversational filler, avoid introductory clauses like "In [Year],", and get straight to the fact.`;
 
-        let responseText;
-        try {
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-            const result = await model.generateContent(prompt);
-            responseText = result.response.text();
-        } catch (initialErr) {
-            console.warn("gemini-1.5-flash failed, attempting fallback to gemini-pro:", initialErr.message);
-            const fallbackModel = genAI.getGenerativeModel({ model: "gemini-pro" });
-            const fallbackResult = await fallbackModel.generateContent(prompt);
-            responseText = fallbackResult.response.text();
-        }
+        const result = await model.generateContent(prompt);
+        const responseText = result.response.text();
 
         return res.status(200).json({ insight: responseText.trim() });
     } catch (error) {

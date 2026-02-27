@@ -27,3 +27,4 @@ dist-ssr
 api/.env
 .env
 vercel_error*.txt
+.env*.local
