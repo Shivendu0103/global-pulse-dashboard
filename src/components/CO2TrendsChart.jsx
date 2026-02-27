@@ -27,10 +27,31 @@ const mockData = [
     { year: '2022', co2: 418.5 },
     { year: '2023', co2: 421.0 },
     { year: '2024', co2: 423.5 },
-    { year: '2025', co2: 425.0 }
+    { year: '2025', co2: 425.0, projectedCo2: 425.0 },
+    { year: '2026', projectedCo2: 427.1 },
+    { year: '2027', projectedCo2: 429.5 },
+    { year: '2028', projectedCo2: 432.2 },
+    { year: '2029', projectedCo2: 435.0 },
+    { year: '2030', projectedCo2: 438.1 },
+    { year: '2031', projectedCo2: 441.5 },
+    { year: '2032', projectedCo2: 445.0 },
+    { year: '2033', projectedCo2: 448.8 },
+    { year: '2034', projectedCo2: 452.5 },
+    { year: '2035', projectedCo2: 456.0 }
 ];
 
-export default function CO2TrendsChart() {
+export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical' }) {
+    // Filter out data points depending on the current mode and year:
+    // For 'historical', only show up to currentYear (max 2025)
+    // For 'projected', show future years.
+    // For 'both', show everything
+    const filteredData = mockData.filter(d => {
+        const y = parseInt(d.year);
+        if (mode === 'historical') return y <= currentYear;
+        if (mode === 'projected') return y >= 2025 && y <= Math.max(2025, currentYear); // we will control projection year independently or sync
+        return y <= currentYear; // for 'both', show up to currentYear
+    });
+
     return (
         <section className="data-section" style={{ paddingTop: '2rem' }}>
             <div className="data-header">
@@ -40,17 +61,24 @@ export default function CO2TrendsChart() {
 
             <motion.div
                 className="chart-container"
+                layout="position"
                 initial={{ opacity: 0, scale: 0.9, y: 50 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{
+                    layout: { duration: 0.8, type: "spring", bounce: 0.2 },
+                    default: { duration: 0.8, ease: "easeOut" }
+                }}
             >
                 <ResponsiveContainer width="100%" height={400}>
-                    <AreaChart data={mockData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                    <AreaChart data={filteredData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorCo2" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="var(--color-brand)" stopOpacity={0.4} />
                                 <stop offset="95%" stopColor="var(--color-brand)" stopOpacity={0} />
+                            </linearGradient>
+                            <linearGradient id="colorProjCo2" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="var(--color-accent)" stopOpacity={0.4} />
+                                <stop offset="95%" stopColor="var(--color-accent)" stopOpacity={0} />
                             </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
@@ -74,16 +102,35 @@ export default function CO2TrendsChart() {
                             }}
                             itemStyle={{ color: 'var(--color-brand)' }}
                         />
-                        <Area
-                            type="monotone"
-                            dataKey="co2"
-                            name="CO2 (ppm)"
-                            stroke="var(--color-brand)"
-                            strokeWidth={3}
-                            fillOpacity={1}
-                            fill="url(#colorCo2)"
-                            animationDuration={2000}
-                        />
+                        {(mode === 'historical' || mode === 'both') && (
+                            <Area
+                                type="monotone"
+                                dataKey="co2"
+                                name="Historical CO2 (ppm)"
+                                stroke="var(--color-brand)"
+                                strokeWidth={3}
+                                fillOpacity={1}
+                                fill="url(#colorCo2)"
+                                isAnimationActive={true}
+                                animationDuration={800}
+                                animationEasing="ease-in-out"
+                            />
+                        )}
+                        {(mode === 'projected' || mode === 'both') && (
+                            <Area
+                                type="monotone"
+                                dataKey="projectedCo2"
+                                name="Projected CO2 (ppm)"
+                                stroke="var(--color-accent)"
+                                strokeWidth={3}
+                                strokeDasharray="5 5"
+                                fillOpacity={1}
+                                fill="url(#colorProjCo2)"
+                                isAnimationActive={true}
+                                animationDuration={800}
+                                animationEasing="ease-in-out"
+                            />
+                        )}
                     </AreaChart>
                 </ResponsiveContainer>
             </motion.div>
