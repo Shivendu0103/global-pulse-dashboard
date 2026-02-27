@@ -124,7 +124,7 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                 }}
             >
                 <ResponsiveContainer width="100%" height={400}>
-                    <ComposedChart data={filteredData} margin={{ top: 20, right: isMobile ? 45 : 30, left: isMobile ? 25 : 0, bottom: 20 }}>
+                    <ComposedChart data={filteredData} margin={{ top: 20, right: isMobile ? 10 : 30, left: 0, bottom: 20 }}>
                         <defs>
                             <linearGradient id="colorCo2" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="var(--color-brand)" stopOpacity={0.4} />
@@ -139,22 +139,23 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
                         <XAxis
                             dataKey="year"
                             stroke="var(--text-secondary)"
-                            tick={{ fill: 'var(--text-secondary)' }}
-                            minTickGap={30}
+                            tick={{ fill: 'var(--text-secondary)', fontSize: isMobile ? 11 : 14 }}
+                            minTickGap={isMobile ? 15 : 30}
                         />
                         <YAxis
                             yAxisId="left"
                             stroke="var(--text-secondary)"
-                            tick={{ fill: 'var(--text-secondary)' }}
+                            tick={{ fill: 'var(--text-secondary)', fontSize: isMobile ? 11 : 14 }}
                             domain={['dataMin - 5', 'dataMax + 5']}
+                            width={isMobile ? 32 : 60}
                         />
-                        {/* Secondary YAxis for Carbon Footprint magnitude (kg CO2) */}
                         <YAxis
                             yAxisId="right"
                             orientation="right"
                             stroke="var(--color-accent)"
-                            tick={{ fill: 'var(--text-secondary)' }}
+                            tick={{ fill: 'var(--text-secondary)', fontSize: isMobile ? 11 : 14 }}
                             domain={[0, 15000]} // Fixed domain bounds so users can see footprint fall relative to a worst-case scenario.
+                            width={isMobile ? 40 : 60}
                         />
                         <Tooltip
                             content={<CustomTooltip />}
