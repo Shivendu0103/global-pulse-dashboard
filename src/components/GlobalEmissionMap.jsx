@@ -72,15 +72,31 @@ export default function GlobalEmissionMap({ currentYear }) {
                     width={800} // Approximate width to fit container
                     height={400}
                     backgroundColor="rgba(0,0,0,0)" // Transparent background
-                    globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
+                    globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
                     bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                    pointsData={pointsData}
-                    pointAltitude={d => d.size * 0.1}
-                    pointColor="color"
-                    pointRadius="size"
-                    pointResolution={32}
-                    pointsMerge={true}
-                    pointLabel="name"
+                    htmlElementsData={pointsData}
+                    htmlLat="lat"
+                    htmlLng="lng"
+                    htmlElement={d => {
+                        const el = document.createElement('div');
+                        el.className = 'marker-container';
+
+                        const pulse = document.createElement('div');
+                        pulse.className = 'pulse-ring';
+                        // Keep dynamic coloring based on projection state scaling
+                        pulse.style.backgroundColor = d.color;
+                        pulse.style.boxShadow = `0 0 ${d.size * 10}px ${d.color}`;
+                        pulse.style.width = `${Math.max(8, d.size * 12)}px`;
+                        pulse.style.height = `${Math.max(8, d.size * 12)}px`;
+
+                        const label = document.createElement('div');
+                        label.className = 'marker-label';
+                        label.innerText = d.name;
+
+                        el.appendChild(pulse);
+                        el.appendChild(label);
+                        return el;
+                    }}
                 />
             </div>
         </section>

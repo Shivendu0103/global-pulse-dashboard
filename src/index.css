@@ -383,6 +383,66 @@ body {
   padding: 1rem;
 }
 
+
 .stack-card-layout .stat-box {
   padding: 1.5rem;
+}
+
+/* Globe HTML Element Markers */
+.marker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.pulse-ring {
+  border-radius: 50%;
+  animation: pulse-animation 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-brand);
+    transform: scale(0.9);
+  }
+
+  70% {
+    box-shadow: 0 0 0 15px rgba(13, 242, 242, 0);
+    transform: scale(1.1);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(13, 242, 242, 0);
+    transform: scale(0.9);
+  }
+}
+
+.marker-label {
+  margin-top: 8px;
+  background-color: rgba(17, 24, 39, 0.85);
+  /* Dark-mode semi-transparent backbox */
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Initial hidden state */
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover reveal */
+.marker-container:hover .marker-label {
+  opacity: 1;
+  transform: translateY(0);
 }
