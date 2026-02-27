@@ -64,11 +64,19 @@ function App() {
 
           <InsightCard year={selectedYear} co2Value={getSimulatedCo2(selectedYear).toFixed(1)} />
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', marginTop: '2rem' }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            justifyContent: 'space-between',
+            alignItems: isMobile ? 'flex-start' : 'center',
+            gap: isMobile ? '1rem' : '0',
+            marginBottom: '1.5rem',
+            marginTop: '2rem'
+          }}>
             <h1 className="dashboard-heading" style={{ margin: 0 }}>Global CO2 Pulse</h1>
 
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-              <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', backgroundColor: 'var(--bg-card)', padding: '0.25rem', borderRadius: '0.5rem', border: '1px solid var(--border-color)', flexWrap: 'wrap' }}>
                 {['historical', 'projected', 'both'].map((m) => (
                   <button
                     key={m}
@@ -112,7 +120,7 @@ function App() {
             </div>
           </div>
 
-          <CO2TrendsChart currentYear={selectedYear} mode={chartMode} calculatorData={calculatorData} />
+          <CO2TrendsChart currentYear={selectedYear} mode={chartMode} calculatorData={calculatorData} isMobile={isMobile} />
 
           <YearSlider
             min={minYear}
