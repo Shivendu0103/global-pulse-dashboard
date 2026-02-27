@@ -1,0 +1,102 @@
+[
+    {
+        "Year": 2004,
+        "CO2_Levels": 377.5,
+        "Renewable_Energy_Percentage": 8.0
+    },
+    {
+        "Year": 2005,
+        "CO2_Levels": 379.8,
+        "Renewable_Energy_Percentage": 8.5
+    },
+    {
+        "Year": 2006,
+        "CO2_Levels": 381.9,
+        "Renewable_Energy_Percentage": 9.2
+    },
+    {
+        "Year": 2007,
+        "CO2_Levels": 383.8,
+        "Renewable_Energy_Percentage": 9.8
+    },
+    {
+        "Year": 2008,
+        "CO2_Levels": 385.6,
+        "Renewable_Energy_Percentage": 10.5
+    },
+    {
+        "Year": 2009,
+        "CO2_Levels": 387.4,
+        "Renewable_Energy_Percentage": 11.2
+    },
+    {
+        "Year": 2010,
+        "CO2_Levels": 389.9,
+        "Renewable_Energy_Percentage": 12.0
+    },
+    {
+        "Year": 2011,
+        "CO2_Levels": 391.6,
+        "Renewable_Energy_Percentage": 13.5
+    },
+    {
+        "Year": 2012,
+        "CO2_Levels": 393.8,
+        "Renewable_Energy_Percentage": 14.8
+    },
+    {
+        "Year": 2013,
+        "CO2_Levels": 396.5,
+        "Renewable_Energy_Percentage": 16.0
+    },
+    {
+        "Year": 2014,
+        "CO2_Levels": 398.6,
+        "Renewable_Energy_Percentage": 17.5
+    },
+    {
+        "Year": 2015,
+        "CO2_Levels": 400.8,
+        "Renewable_Energy_Percentage": 19.0
+    },
+    {
+        "Year": 2016,
+        "CO2_Levels": 404.2,
+        "Renewable_Energy_Percentage": 20.5
+    },
+    {
+        "Year": 2017,
+        "CO2_Levels": 406.5,
+        "Renewable_Energy_Percentage": 22.0
+    },
+    {
+        "Year": 2018,
+        "CO2_Levels": 408.5,
+        "Renewable_Energy_Percentage": 24.0
+    },
+    {
+        "Year": 2019,
+        "CO2_Levels": 411.4,
+        "Renewable_Energy_Percentage": 25.5
+    },
+    {
+        "Year": 2020,
+        "CO2_Levels": 414.2,
+        "Renewable_Energy_Percentage": 27.5
+    },
+    {
+        "Year": 2021,
+        "CO2_Levels": 416.4,
+        "Renewable_Energy_Percentage": 28.5
+    },
+    {
+        "Year": 2022,
+        "CO2_Levels": 418.5,
+        "Renewable_Energy_Percentage": 29.5
+    },
+    {
+        "Year": 2023,
+        "CO2_Levels": 421.0,
+        "Renewable_Energy_Percentage": 30.2
+    }
+]
