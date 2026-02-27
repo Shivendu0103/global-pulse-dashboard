@@ -30,7 +30,9 @@ const mockData = [
     { year: '2025', co2: 425.0 }
 ];
 
-export default function CO2TrendsChart() {
+export default function CO2TrendsChart({ currentYear = 2025 }) {
+    const filteredData = mockData.filter(d => parseInt(d.year) <= currentYear);
+
     return (
         <section className="data-section" style={{ paddingTop: '2rem' }}>
             <div className="data-header">
@@ -40,13 +42,16 @@ export default function CO2TrendsChart() {
 
             <motion.div
                 className="chart-container"
+                layout="position"
                 initial={{ opacity: 0, scale: 0.9, y: 50 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{
+                    layout: { duration: 0.8, type: "spring", bounce: 0.2 },
+                    default: { duration: 0.8, ease: "easeOut" }
+                }}
             >
                 <ResponsiveContainer width="100%" height={400}>
-                    <AreaChart data={mockData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                    <AreaChart data={filteredData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorCo2" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="var(--color-brand)" stopOpacity={0.4} />
@@ -82,7 +87,9 @@ export default function CO2TrendsChart() {
                             strokeWidth={3}
                             fillOpacity={1}
                             fill="url(#colorCo2)"
-                            animationDuration={2000}
+                            isAnimationActive={true}
+                            animationDuration={800}
+                            animationEasing="ease-in-out"
                         />
                     </AreaChart>
                 </ResponsiveContainer>
