@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 import data from '../assets/data.json';
 
-export default function DataProjection() {
+export default function DataProjection({ isMobile }) {
     return (
         <section className="data-section">
             <div className="data-header">
@@ -49,7 +49,7 @@ export default function DataProjection() {
                 transition={{ duration: 0.8 }}
             >
                 <ResponsiveContainer width="100%" height={400}>
-                    <AreaChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+                    <AreaChart data={data} margin={{ top: 20, right: isMobile ? 10 : 30, left: 0, bottom: 20 }}>
                         <defs>
                             <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="#0df2f2" stopOpacity={0.3} />
@@ -61,9 +61,9 @@ export default function DataProjection() {
                             </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
-                        <XAxis dataKey="Year" stroke="#a0a0a0" tick={{ fill: '#a0a0a0' }} />
-                        <YAxis yAxisId="left" stroke="#a0a0a0" tick={{ fill: '#a0a0a0' }} domain={['dataMin - 5', 'dataMax + 5']} />
-                        <YAxis yAxisId="right" orientation="right" stroke="#a0a0a0" tick={{ fill: '#a0a0a0' }} domain={[0, 40]} />
+                        <XAxis dataKey="Year" stroke="#a0a0a0" tick={{ fill: '#a0a0a0', fontSize: isMobile ? 11 : 14 }} minTickGap={isMobile ? 15 : 30} />
+                        <YAxis yAxisId="left" stroke="#a0a0a0" tick={{ fill: '#a0a0a0', fontSize: isMobile ? 11 : 14 }} domain={['dataMin - 5', 'dataMax + 5']} width={isMobile ? 32 : 60} />
+                        <YAxis yAxisId="right" orientation="right" stroke="#a0a0a0" tick={{ fill: '#a0a0a0', fontSize: isMobile ? 11 : 14 }} domain={[0, 40]} width={isMobile ? 32 : 60} />
                         <Tooltip
                             contentStyle={{ backgroundColor: '#1e1e1e', borderColor: '#333', borderRadius: '8px', color: '#fff' }}
                             itemStyle={{ color: '#fff' }}

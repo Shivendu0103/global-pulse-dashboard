@@ -15,7 +15,7 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'Missing year or co2Value in request body' });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const prompt = `You are an expert environmental data analyst for the Global Pulse Dashboard. 
 Provide a concise, objective, and evidence-based insight (max 40 words) for the global status in the year ${year} when the Atmospheric CO2 was ${co2Value} ppm. 

@@ -41,7 +41,7 @@ function App() {
         <HeroSection />
         <div className="content-wrapper">
           <NarrativeCards />
-          <DataProjection />
+          <DataProjection isMobile={isMobile} />
 
           <Suspense fallback={
             <div style={{
@@ -67,18 +67,18 @@ function App() {
           <div style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '1rem',
-            marginBottom: '1.5rem',
-            marginTop: '2rem'
+            gap: '0.25rem',
+            marginBottom: '0.5rem',
+            marginTop: '0.5rem'
           }}>
-            <h1 className="dashboard-heading" style={{ margin: 0 }}>Global CO2 Pulse</h1>
+            <h1 className="dashboard-heading" style={{ margin: 0, marginTop: '0.5rem' }}>Global CO2 Pulse</h1>
 
             <div style={{
               display: 'flex',
               flexDirection: isMobile ? 'column' : 'row',
               justifyContent: 'space-between',
               alignItems: isMobile ? 'stretch' : 'center',
-              gap: '1.5rem'
+              gap: '0.75rem'
             }}>
 
               {/* Left Side: Chart Mode Controls */}
@@ -117,7 +117,7 @@ function App() {
                 alignItems: isMobile ? 'stretch' : 'flex-end',
                 gap: '0.5rem',
                 backgroundColor: isMobile ? 'rgba(255,255,255,0.03)' : 'transparent',
-                padding: isMobile ? '1rem' : '0',
+                padding: isMobile ? '0.5rem' : '0',
                 borderRadius: '0.5rem',
                 border: isMobile ? '1px solid var(--border-color)' : 'none'
               }}>
