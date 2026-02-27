@@ -29,8 +29,8 @@ function App() {
                 onClick={() => {
                   setChartMode(m);
                   if (m === 'historical' && selectedYear > 2025) setSelectedYear(2025);
-                  if (m === 'projected' && selectedYear < 2025) setSelectedYear(2035);
-                  if (m === 'both') setSelectedYear(2035);
+                  if (m === 'projected' && selectedYear <= 2025) setSelectedYear(2035);
+                  if (m === 'both' && selectedYear <= 2025) setSelectedYear(2035);
                 }}
                 style={{
                   padding: '0.5rem 1rem',

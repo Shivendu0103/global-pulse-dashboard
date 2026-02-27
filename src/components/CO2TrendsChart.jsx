@@ -56,7 +56,12 @@ export default function CO2TrendsChart({ currentYear = 2025, mode = 'historical'
         <section className="data-section" style={{ paddingTop: '2rem' }}>
             <div className="data-header">
                 <h2>CO2 Emission Trends</h2>
-                <p>Historical global atmospheric carbon dioxide levels (in ppm).</p>
+                <p>
+                    {mode === 'historical' && "Historical "}
+                    {mode === 'projected' && "Projected "}
+                    {mode === 'both' && "Historical and projected "}
+                    global atmospheric carbon dioxide levels (in ppm).
+                </p>
             </div>
 
             <motion.div
