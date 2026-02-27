@@ -25,6 +25,25 @@ function App() {
           <NarrativeCards />
           <DataProjection />
 
+          <Suspense fallback={
+            <div style={{
+              height: '400px',
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'var(--bg-card)',
+              borderRadius: 'var(--radius)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--color-brand)',
+              fontWeight: 600
+            }}>
+              Loading 3D Earth...
+            </div>
+          }>
+            <GlobalEmissionMap currentYear={selectedYear} />
+          </Suspense>
+
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', marginTop: '2rem' }}>
             <h1 className="dashboard-heading" style={{ margin: 0 }}>Global CO2 Pulse</h1>
 
@@ -55,25 +74,6 @@ function App() {
               ))}
             </div>
           </div>
-
-          <Suspense fallback={
-            <div style={{
-              height: '400px',
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'var(--bg-card)',
-              borderRadius: 'var(--radius)',
-              border: '1px solid var(--border-color)',
-              color: 'var(--color-brand)',
-              fontWeight: 600
-            }}>
-              Loading 3D Earth...
-            </div>
-          }>
-            <GlobalEmissionMap currentYear={selectedYear} />
-          </Suspense>
 
           <CO2TrendsChart currentYear={selectedYear} mode={chartMode} />
 
