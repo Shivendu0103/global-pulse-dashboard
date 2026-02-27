@@ -4,6 +4,7 @@ import HeroSection from './components/HeroSection';
 import NarrativeCards from './components/NarrativeCards';
 import DataProjection from './components/DataProjection';
 import CO2TrendsChart from './components/CO2TrendsChart';
+import GlobalEmissionMap from './components/GlobalEmissionMap';
 import YearSlider from './components/YearSlider';
 import useIsMobile from './hooks/useIsMobile';
 
@@ -54,6 +55,8 @@ function App() {
               ))}
             </div>
           </div>
+
+          <GlobalEmissionMap currentYear={selectedYear} />
 
           <CO2TrendsChart currentYear={selectedYear} mode={chartMode} />
 
