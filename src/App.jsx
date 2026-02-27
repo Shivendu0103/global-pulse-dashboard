@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { MotionConfig } from 'framer-motion';
 import HeroSection from './components/HeroSection';
 import NarrativeCards from './components/NarrativeCards';
 import DataProjection from './components/DataProjection';
 import CO2TrendsChart from './components/CO2TrendsChart';
-import GlobalEmissionMap from './components/GlobalEmissionMap';
+const GlobalEmissionMap = lazy(() => import('./components/GlobalEmissionMap'));
 import YearSlider from './components/YearSlider';
 import useIsMobile from './hooks/useIsMobile';
 
@@ -56,7 +56,24 @@ function App() {
             </div>
           </div>
 
-          <GlobalEmissionMap currentYear={selectedYear} />
+          <Suspense fallback={
+            <div style={{
+              height: '400px',
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'var(--bg-card)',
+              borderRadius: 'var(--radius)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--color-brand)',
+              fontWeight: 600
+            }}>
+              Loading 3D Earth...
+            </div>
+          }>
+            <GlobalEmissionMap currentYear={selectedYear} />
+          </Suspense>
 
           <CO2TrendsChart currentYear={selectedYear} mode={chartMode} />
 
