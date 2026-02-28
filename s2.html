@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Environmental Narrative Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2f2",
+                        "coral": "#ff6b6b",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#102222",
+                        "surface-dark": "#183434",
+                        "surface-light": "#224949",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(24, 52, 52, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .text-glow-primary {
+            text-shadow: 0 0 10px rgba(13, 242, 242, 0.5);
+        }
+        .text-glow-coral {
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen overflow-x-hidden flex flex-col justify-between">
+<!-- Header / Title Area -->
+<div class="sticky top-0 z-20 glass-panel border-b border-surface-light/30">
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">eco</span>
+<h2 class="text-white text-lg font-bold leading-tight tracking-tight">EcoImpact</h2>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center h-10 w-10 rounded-full hover:bg-white/10 text-white transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="flex items-center justify-center h-10 w-10 rounded-full hover:bg-white/10 text-white transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="w-full h-1 bg-surface-dark">
+<div class="h-full bg-primary w-1/3 shadow-[0_0_10px_rgba(13,242,242,0.5)]"></div>
+</div>
+</div>
+<!-- Main Scroll Content -->
+<main class="flex-1 flex flex-col gap-6 p-4 pb-24 relative">
+<!-- Abstract Background Elements -->
+<div class="fixed top-20 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="fixed bottom-40 right-0 w-80 h-80 bg-coral/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<!-- Section Header -->
+<div class="mt-4 mb-2">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-3">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs font-medium text-primary uppercase tracking-wider">Live Data</span>
+</div>
+<h1 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-2">
+                Our Commitment to a <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-teal-200">Green Future</span>
+</h1>
+<p class="text-slate-400 text-sm leading-relaxed max-w-[90%]">
+                Tracking our progress towards net-zero emissions through real-time global initiatives and sustainable practices.
+            </p>
+</div>
+<!-- Featured Card: Emissions -->
+<div class="glass-panel rounded-xl overflow-hidden relative group">
+<div class="absolute top-0 right-0 p-6 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-coral" style="font-size: 120px; font-weight: 200;">wind_power</span>
+</div>
+<div class="relative z-10 p-6 flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-1">
+<span class="text-slate-400 text-xs font-medium uppercase tracking-wider">Target Goal</span>
+<h3 class="text-white text-xl font-semibold">Emissions Reduction</h3>
+</div>
+<div class="bg-coral/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-coral">trending_down</span>
+</div>
+</div>
+<div class="mt-2">
+<div class="text-5xl font-bold text-coral text-glow-coral tracking-tighter mb-1">50%</div>
+<p class="text-slate-300 font-medium">Reduction by 2030</p>
+</div>
+<div class="mt-4 pt-4 border-t border-white/10">
+<div class="flex justify-between items-end mb-2">
+<span class="text-xs text-slate-400">Current Progress</span>
+<span class="text-xs text-coral font-bold">32%</span>
+</div>
+<div class="w-full bg-surface-dark h-2 rounded-full overflow-hidden">
+<div class="bg-coral h-full rounded-full w-[32%] relative">
+<div class="absolute right-0 top-0 bottom-0 w-1 bg-white/50"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Card: Carbon Sequestration -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden bg-gradient-to-br from-surface-light/40 to-transparent">
+<!-- Decorative glow -->
+<div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">forest</span>
+</div>
+<div>
+<h3 class="text-white font-semibold">Carbon Sequestration</h3>
+<p class="text-xs text-slate-400">Year to Date</p>
+</div>
+</div>
+<span class="text-primary bg-primary/10 px-2 py-1 rounded text-xs font-bold">+8.4%</span>
+</div>
+<div class="flex items-baseline gap-2 relative z-10">
+<span class="text-4xl font-bold text-white tracking-tight">12.5</span>
+<span class="text-lg text-slate-400 font-medium">Mt</span>
+</div>
+<p class="text-xs text-slate-500 mt-2 relative z-10">Equivalent to planting 200M trees</p>
+</div>
+<!-- Grid of smaller metrics -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Metric 1 -->
+<div class="glass-panel rounded-xl p-4 flex flex-col gap-3 hover:bg-white/5 transition-colors cursor-pointer">
+<div class="text-slate-400 flex justify-between items-start">
+<span class="material-symbols-outlined text-2xl">water_drop</span>
+<span class="material-symbols-outlined text-lg opacity-50">arrow_outward</span>
+</div>
+<div>
+<div class="text-2xl font-bold text-white">4.2B</div>
+<div class="text-xs text-slate-400">Gallons Saved</div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="glass-panel rounded-xl p-4 flex flex-col gap-3 hover:bg-white/5 transition-colors cursor-pointer">
+<div class="text-slate-400 flex justify-between items-start">
+<span class="material-symbols-outlined text-2xl">recycling</span>
+<span class="material-symbols-outlined text-lg opacity-50">arrow_outward</span>
+</div>
+<div>
+<div class="text-2xl font-bold text-white">98%</div>
+<div class="text-xs text-slate-400">Waste Diverted</div>
+</div>
+</div>
+</div>
+<!-- Map Teaser -->
+<div class="glass-panel rounded-xl overflow-hidden mt-2">
+<div class="h-40 w-full relative bg-surface-dark">
+<!-- Placeholder for map visualization -->
+<div class="absolute inset-0 opacity-40 bg-[url('https://placeholder.pics/svg/600x300/183434/2A5959-102222/Map%20Visualization')] bg-cover bg-center" data-alt="Abstract world map showing data points in teal" data-location="Global View" style=""></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<h3 class="text-white font-bold text-lg">Global Impact Map</h3>
+<div class="flex items-center justify-between mt-1">
+<p class="text-xs text-slate-300">View active projects worldwide</p>
+<button class="bg-primary text-background-dark rounded-full p-2 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="sticky bottom-0 w-full bg-surface-dark/90 backdrop-blur-md border-t border-surface-light/50 px-6 pb-6 pt-3 z-30">
+<div class="flex justify-between items-end gap-2">
+<a class="flex flex-1 flex-col items-center gap-1 group" href="#">
+<div class="text-white group-hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined fill-current">auto_stories</span>
+<span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full"></span>
+</div>
+<span class="text-xs font-medium text-white group-hover:text-primary transition-colors">Narrative</span>
+</a>
+<a class="flex flex-1 flex-col items-center gap-1 group" href="#">
+<div class="text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bar_chart</span>
+</div>
+<span class="text-xs font-medium text-slate-400 group-hover:text-primary transition-colors">Data</span>
+</a>
+<a class="flex flex-1 flex-col items-center gap-1 group" href="#">
+<div class="text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">public</span>
+</div>
+<span class="text-xs font-medium text-slate-400 group-hover:text-primary transition-colors">Map</span>
+</a>
+<a class="flex flex-1 flex-col items-center gap-1 group" href="#">
+<div class="text-slate-400 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">person</span>
+</div>
+<span class="text-xs font-medium text-slate-400 group-hover:text-primary transition-colors">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

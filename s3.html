@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Environmental Data Projections</title>
+<!-- Fonts and Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2f2",
+                        "primary-dim": "#0a9999",
+                        "accent-coral": "#FF7F50",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#102222",
+                        "surface-dark": "#162e2e",
+                        "surface-glass": "rgba(22, 46, 46, 0.7)",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "2xl": "2rem", "full": "9999px" },
+                    backdropBlur: {
+                        'xs': '2px',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #234a4a;
+            border-radius: 4px;
+        }
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(22, 46, 46, 0.6) 0%, rgba(16, 34, 34, 0.8) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 242, 242, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden min-h-screen flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 flex items-center justify-between p-4 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-primary/10">
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 transition-colors text-slate-600 dark:text-slate-200">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">Projections</h1>
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-primary/10 transition-colors text-slate-600 dark:text-slate-200">
+<span class="material-symbols-outlined text-[24px]">more_vert</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col p-4 gap-6 w-full max-w-lg mx-auto">
+<!-- Toggle Switch -->
+<div class="flex justify-center w-full">
+<div class="flex h-12 w-full max-w-xs items-center justify-center rounded-xl bg-surface-dark p-1 border border-primary/10 shadow-inner">
+<label class="group relative flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 transition-all duration-300">
+<input class="peer invisible absolute w-0" name="view-toggle" type="radio" value="Past"/>
+<span class="z-10 text-sm font-medium text-slate-400 peer-checked:text-background-dark transition-colors duration-200">Past</span>
+<div class="absolute inset-0 bg-transparent peer-checked:bg-primary peer-checked:shadow-sm transition-all duration-300 rounded-lg scale-95 peer-checked:scale-100"></div>
+</label>
+<label class="group relative flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-lg px-2 transition-all duration-300">
+<input checked="" class="peer invisible absolute w-0" name="view-toggle" type="radio" value="Projected"/>
+<span class="z-10 text-sm font-medium text-slate-400 peer-checked:text-background-dark transition-colors duration-200">Projected</span>
+<div class="absolute inset-0 bg-transparent peer-checked:bg-primary peer-checked:shadow-sm transition-all duration-300 rounded-lg scale-95 peer-checked:scale-100"></div>
+</label>
+</div>
+</div>
+<!-- Title Section -->
+<div class="space-y-1">
+<h2 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Global Temperature Trends</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Analysis based on IPCC AR6 data models.</p>
+</div>
+<!-- Chart Card -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<!-- Glow Effect behind chart -->
+<div class="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-[60px] pointer-events-none"></div>
+<div class="absolute bottom-1/4 right-1/4 w-40 h-40 bg-accent-coral/10 rounded-full blur-[60px] pointer-events-none"></div>
+<!-- Stats Header inside Card -->
+<div class="flex items-end justify-between mb-8 relative z-10">
+<div>
+<p class="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">Projected Rise</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-slate-900 dark:text-white">+1.5°C</span>
+<span class="text-sm font-medium text-accent-coral bg-accent-coral/10 px-2 py-0.5 rounded-full border border-accent-coral/20">Critical</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">Variance</p>
+<p class="text-primary font-semibold flex items-center justify-end gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        +0.4%
+                    </p>
+</div>
+</div>
+<!-- SVG Chart -->
+<div class="relative w-full h-64 z-10">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 400 200">
+<defs>
+<!-- Gradient for the area under the curve -->
+<lineargradient id="gradient-area" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0df2f2" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#0df2f2" stop-opacity="0"></stop>
+</lineargradient>
+<!-- Glow filter -->
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="coloredBlur" stddeviation="3"></fegaussianblur>
+<femerge>
+<femergenode in="coloredBlur"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<!-- Grid Lines -->
+<g class="stroke-slate-700/30" stroke-dasharray="4 4" stroke-width="1">
+<line x1="0" x2="400" y1="40" y2="40"></line>
+<line x1="0" x2="400" y1="90" y2="90"></line>
+<line x1="0" x2="400" y1="140" y2="140"></line>
+</g>
+<!-- Past Data Line (Solid Teal) -->
+<path d="M0,160 C40,155 80,145 120,130 C160,115 180,110 220,100" fill="none" filter="url(#glow)" stroke="#0df2f2" stroke-linecap="round" stroke-width="3"></path>
+<!-- Area under Past Data -->
+<path d="M0,160 C40,155 80,145 120,130 C160,115 180,110 220,100 L220,200 L0,200 Z" fill="url(#gradient-area)" opacity="0.6"></path>
+<!-- Projected Data Line (Dashed Coral) -->
+<path d="M220,100 C260,85 300,60 340,40 C360,30 380,20 400,10" fill="none" stroke="#FF7F50" stroke-dasharray="6 4" stroke-linecap="round" stroke-width="3"></path>
+<!-- Intersection Point Marker -->
+<circle cx="220" cy="100" fill="#102222" r="4" stroke="#0df2f2" stroke-width="2"></circle>
+<!-- Axis Labels -->
+<g class="text-[10px] font-medium fill-slate-500 dark:fill-slate-400" style="text-anchor: middle;">
+<text text-anchor="start" x="0" y="215">2000</text>
+<text x="110" y="215">2015</text>
+<text class="fill-primary font-bold" x="220" y="215">Today</text>
+<text x="330" y="215">2040</text>
+<text text-anchor="end" x="400" y="215">2050</text>
+</g>
+</svg>
+</div>
+<!-- Tooltip simulation -->
+<div class="absolute top-[35%] left-[60%] bg-surface-dark border border-primary/20 rounded-lg p-2 shadow-xl z-20 pointer-events-none transform -translate-x-1/2 translate-y-4">
+<p class="text-[10px] text-slate-400 mb-0.5">Projected 2035</p>
+<p class="text-sm font-bold text-accent-coral">+1.2°C</p>
+</div>
+</div>
+<!-- Description Text -->
+<div class="px-2">
+<p class="text-base font-normal leading-relaxed text-slate-600 dark:text-slate-300">
+                Projected data indicates a steady rise in global temperatures unless significant intervention occurs. The <span class="text-accent-coral font-semibold">dashed coral line</span> represents the estimated trajectory based on current emission levels exceeding the Paris Agreement targets.
+            </p>
+</div>
+<!-- Additional Data Cards (Grid) -->
+<div class="grid grid-cols-2 gap-4 mt-2 pb-8">
+<div class="bg-surface-dark border border-white/5 rounded-xl p-4 flex flex-col gap-2">
+<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">co2</span>
+</div>
+<span class="text-slate-400 text-xs">CO2 PPM</span>
+<span class="text-xl font-bold text-white">419.8</span>
+</div>
+<div class="bg-surface-dark border border-white/5 rounded-xl p-4 flex flex-col gap-2">
+<div class="size-8 rounded-full bg-accent-coral/10 flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<span class="text-slate-400 text-xs">Sea Level</span>
+<span class="text-xl font-bold text-white">+3.4<small class="text-xs font-normal text-slate-500 ml-1">mm/yr</small></span>
+</div>
+</div>
+</main>
+<!-- Floating Action Button for Interaction -->
+<div class="fixed bottom-6 right-6 z-40">
+<button class="bg-primary hover:bg-primary-dim text-background-dark rounded-full p-4 shadow-lg shadow-primary/20 transition-all active:scale-95">
+<span class="material-symbols-outlined block" style="font-size: 28px;">download</span>
+</button>
+</div>
+</body></html>
